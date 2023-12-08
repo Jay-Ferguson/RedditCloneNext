@@ -2,7 +2,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { FC } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import SignIn from "@/components/SignIn";
+import SignIn from "../../../components/SignIn";
 
 const page: FC = ({}) => {
   return (
@@ -10,13 +10,11 @@ const page: FC = ({}) => {
       <div className="h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-10">
         <Link
           href="/"
-          className={cn(buttonVariants({ variant: "ghost" }), 'self-start -mt-20')}
+          className={cn(buttonVariants({ variant: "ghost" }), 'self-start mt-2')}
         >
-          Home
         </Link>
         <SignIn />
       </div>
-      page
     </div>
   );
 };

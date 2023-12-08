@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/ui/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 export const metadata = {
   title: "Breadit",
   description: "A Reddit clone built with Next.js and TypeScript.",
@@ -24,10 +25,10 @@ export default function RootLayout({
     >
       <body className="min-h-screen p-12 bg-slate-50 antialiased">
         {/* @ts-expect-error Server Component */}
-        <Navbar>
+        <Navbar />
           <div className="container max-w-7xl mx-auto h-full p-12"></div>
           {children}
-        </Navbar>
+       <Toaster/>
       </body>
     </html>
   );

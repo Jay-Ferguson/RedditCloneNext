@@ -16,7 +16,7 @@ const Navbar = async () => {
           </p>
           <Link href="/sign-in" className="">
             <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"></Icons.logo>
-            Sign In
+            Sign up
           </Link>
           {/* search */}
 
