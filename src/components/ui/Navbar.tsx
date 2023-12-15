@@ -2,9 +2,14 @@
 "use client";
 
 import Link from "next/link";
-import {Icons} from "../Icons"
+import { Icons } from "../Icons";
 import { buttonVariants } from "./Button";
+import { getAuthSession } from "@/lib/auth";
+import UserAccountNav from "../UserAccountNav";
+
+
 const Navbar = async () => {
+  const session = await getAuthSession();
 
   return (
     <div className="fixed top-0 inset-x-0 h-fit bg-zinc-100 border-b border-zinc-350 z-[10] py-2">
@@ -18,11 +23,16 @@ const Navbar = async () => {
             <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"></Icons.logo>
             Sign up
           </Link>
-          {/* search */}
 
-          <Link href="/sign-in" className={buttonVariants()}>
-            Sign In
-          </Link>
+          {session?.user ? (
+            <UserAccountNav>
+
+            </UserAccountNav>
+          ) : (
+            <Link href="/sign-in" className={buttonVariants()}>
+              Sign In
+            </Link>
+          )}
         </nav>
       </header>
     </div>
