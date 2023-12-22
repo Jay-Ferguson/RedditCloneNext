@@ -11,7 +11,7 @@ interface UserAvatarProps extends AvatarProps {
 
 const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {
   return (
-    <Avatar>
+    <Avatar {...props}>
       {user.image ? (
         <div className="relative">
           <Image
