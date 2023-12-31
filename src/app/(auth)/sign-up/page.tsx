@@ -2,7 +2,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { FC } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import SignIn from "../../../components/SignIn";
+import SignUp from '../../../components/SignUp'
 import { ChevronLeft } from "lucide-react";
 
 const page: FC = ({}) => {
@@ -11,11 +11,14 @@ const page: FC = ({}) => {
       <div className="h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-10">
         <Link
           href="/"
-          className={cn(buttonVariants({ variant: "ghost" }), 'self-start mt-2')}
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            "self-start mt-2"
+          )}
         >
           <ChevronLeft className="mr-2 h-4 w-4" />
         </Link>
-        <SignIn />
+        <SignUp />
       </div>
     </div>
   );

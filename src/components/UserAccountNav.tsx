@@ -1,5 +1,7 @@
-import { FC } from "react";
+'use client'
+
 import { User } from "next-auth";
+import { FC } from "react";
 import { DropdownMenu } from "./ui/DropDownMenu";
 import {
   DropdownMenuSeparator,
@@ -49,7 +51,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <Link href="/settings">create commmunity</Link>
+          <Link href="/settings">Settings</Link>
         </DropdownMenuItem>
                     <DropdownMenuSeparator></DropdownMenuSeparator>
 
@@ -58,7 +60,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
                          signOut({
                               callbackUrl: `${window.location.origin}/sign-in`
                          })
-                    }} className="curosr-pointer">SignOut</DropdownMenuItem>
+                    }} className="curosr-pointer">Sign Out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

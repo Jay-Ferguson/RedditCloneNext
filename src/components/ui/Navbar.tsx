@@ -8,6 +8,7 @@ import { getAuthSession } from "@/lib/auth";
 import UserAccountNav from "../UserAccountNav";
 
 
+
 const Navbar = async () => {
   const session = await getAuthSession();
 
@@ -17,15 +18,16 @@ const Navbar = async () => {
         {/* {logo} */}
         <nav className="flex justify-between items-center px-10 py-4 w-full min-w-fit">
           <p className="hidden text-zinc-700 text-sm font-medium md:block">
-            Breaddit
+            Breadit
           </p>
           <Link href="/sign-in" className="">
             <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"></Icons.logo>
             Sign up
           </Link>
 
+
           {session?.user ? (
-            <UserAccountNav User={user}>
+            <UserAccountNav user={session.user}>
 
             </UserAccountNav>
           ) : (
