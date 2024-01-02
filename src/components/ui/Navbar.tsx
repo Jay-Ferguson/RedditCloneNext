@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-"use client";
-
 import Link from "next/link";
 import { Icons } from "../Icons";
 import { buttonVariants } from "./Button";
