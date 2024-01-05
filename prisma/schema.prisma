@@ -91,7 +91,7 @@ model Post {
   author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
-  commentds Comment[]
+  comments Comment[]
   votes     Vote[]
 }
 

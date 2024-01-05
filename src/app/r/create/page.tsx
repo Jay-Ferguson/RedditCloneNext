@@ -91,7 +91,7 @@ const Page = () => {
             disabled={input.length === 0}
             onClick={() => createCommunity()}
           >
-            Create
+            Create Community
           </Button>
         </div>
       </div>
