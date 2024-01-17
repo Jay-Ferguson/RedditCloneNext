@@ -49,6 +49,8 @@ export async function POST(req: Request) {
       });
     }
 
+    //check if user is creator
+
     await db.subscription.delete({
       where: {
         userId_subredditId: {
