@@ -10,7 +10,7 @@ interface PageProps {
   };
 }
 
-const page: FC<PageProps> = async ({ params }: PageProps) => {
+const page = async ({ params }: PageProps) => {
   const subreddit = await db.subreddit.findFirst({
     where: {
       name: params.slug,

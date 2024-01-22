@@ -39,6 +39,7 @@ if(!subreddit) return notFound()
      <MiniCreatePost session={session}></MiniCreatePost>
 
      {/* show post in user feed  */}
+     
   </div>;
 };
 
