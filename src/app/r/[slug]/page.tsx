@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { notFound } from "next/navigation";
 import MiniCreatePost from "@/components/MiniCreatePost";
+import PostFeed from "@/components/PostFeed";
 
 interface pageProps {
   params: {
@@ -39,7 +40,7 @@ if(!subreddit) return notFound()
      <MiniCreatePost session={session}></MiniCreatePost>
 
      {/* show post in user feed  */}
-     
+     <PostFeed intialPosts={}/>
   </div>;
 };
 
