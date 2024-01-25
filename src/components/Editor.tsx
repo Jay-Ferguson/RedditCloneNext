@@ -140,6 +140,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     }
   }, [isMounted, initializeEditor]);
 
+
   const { mutate: createPost } = useMutation({
     mutationFn: async ({
       title,
@@ -166,7 +167,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     onSuccess: () => {
       // r/my community/submit into r/mycommunity
       const newPathname = pathname.split("/").slice(0, -1).join("/");
-      router.push(newPathname);
+      router.push(newPathname); 
 
       router.refresh();
 

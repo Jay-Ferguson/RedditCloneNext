@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    const { subredditId, title, content } = PostValidator.parse(body);
+    const { subredditId, title, content } = PostValidator.parse(body)
 
     const subscriptionExists = await db.subscription.findFirst({
       where: {
@@ -24,17 +24,10 @@ export async function POST(req: Request) {
     });
 
     if (!subscriptionExists) {
-      return new Response("Subscribed to post", {
+      return new Response("Subscribe to post", {
         status: 400,
       });
     }
-
-    await db.subscription.create({
-      data: {
-        subredditId,
-        userId: session.user.id,
-      },
-    });
 
     await db.post.create({
       data: {
@@ -45,13 +38,13 @@ export async function POST(req: Request) {
       },
     });
 
-    return new Response(subredditId);
+    return new Response('OK');
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response("invalid request passed", { status: 422 });
     }
     return new Response(
-      "Could not post the content to this subreddit at this time please try again later",
+      "Could not post to subreddit at this time, please try again later",
       {
         status: 500,
       }

@@ -30,6 +30,8 @@ const page = async ({ params }: pageProps) => {
       },
     },
   });
+
+  
 if(!subreddit) return notFound()
 
   return <div>
@@ -37,10 +39,11 @@ if(!subreddit) return notFound()
      <h1 className='font-bold text-3xl md:text-4xl h-14'>
           r/{subreddit.name}
      </h1>
-     <MiniCreatePost session={session}></MiniCreatePost>
-
+     <MiniCreatePost session={session}/>
      {/* show post in user feed  */}
-     <PostFeed intialPosts={}/>
+     {/* come back to this typescript issue with the initial post props */}
+     {/* @ts-ignore */}
+     <PostFeed initialPosts={subreddit.posts} subredditName={subreddit.name}/>
   </div>;
 };
 
