@@ -5,6 +5,8 @@ import type { Post, User, Vote } from "@prisma/client";
 import { formatTimeToNow } from "@/lib/utils";
 import Link from "next/link";
 import { MessageSquare } from "lucide-react";
+import EditorOutput from "./EditorOutput";
+import PostVoteClient from "./post-vote/PostVoteClient";
 
 type PartialVote = Pick<Vote, "type">;
 interface PostProps {
@@ -18,12 +20,22 @@ interface PostProps {
   commentAmt: number;
 }
 
-const Post: FC<PostProps> = ({ subredditName, post, commentAmt }) => {
+const Post: FC<PostProps> = ({
+  subredditName,
+  post,
+  commentAmt,
+  votesAmt,
+  currentVote
+}) => {
   const pRef = useRef<HTMLDivElement>(null);
   return (
     <div className="round-md bg-white shadow">
       <div className="px-6 py-6 flex justify-between">
-        {/* Postvotes */}
+        <PostVoteClient
+          initialVotesAmt={votesAmt}
+          postId={post.id}
+          initialVote={currentVote?.type}
+        />
         <div className="w-0 flex-1">
           <div className="max-h-40 mt-1 text-xs text-gray-500">
             {subredditName ? (
@@ -52,11 +64,12 @@ const Post: FC<PostProps> = ({ subredditName, post, commentAmt }) => {
             className="relative text-sm max-h-40 w-full overflow-clip"
             ref={pRef}
           >
+            <EditorOutput content={post.content}></EditorOutput>
+
             {pRef.current?.clientHeight === 160 ? (
               <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent"></div>
             ) : null}
           </div>
-
           <a
             href={`/r/${subredditName}/post/${post.id}`}
             className="w-fit flex items-center gap-2"
