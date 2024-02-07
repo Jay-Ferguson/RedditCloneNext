@@ -65,10 +65,13 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
         setCurrentVote(undefined);
         if (type === "UP") setVotesAmt((prev) => prev - 1);
         else if (type === "DOWN") setVotesAmt((prev) => prev + 1);
-      } else {
+      } 
+      // set upvotes back to neutral position
+      else {
         setCurrentVote(type);
         if (type === "UP") setVotesAmt((prev) => prev + (currentVote ? 2 : 1));
-        else if (type === 'DOWN') setVotesAmt((prev) => prev - (currentVote ? 2 : 1))
+        else if (type === "DOWN")
+          setVotesAmt((prev) => prev - (currentVote ? 2 : 1));
       }
     },
   });

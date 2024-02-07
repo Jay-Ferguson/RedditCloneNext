@@ -7,7 +7,7 @@ import { Redis } from "@upstash/redis/nodejs";
 import { redis } from "@/lib/redis";
 import { z } from "zod";
 
-const CACHE_AFTER_UPVITES = 1;
+const CACHE_AFTER_UPVOTES = 1;
 
 export async function PATCH(req: Request) {
   try {
@@ -50,6 +50,7 @@ export async function PATCH(req: Request) {
             },
           },
         });
+
         return new Response("OK");
       }
       await db.vote.update({
@@ -71,7 +72,7 @@ export async function PATCH(req: Request) {
         return acc;
       }, 0);
 
-      if (votesAmt >= CACHE_AFTER_UPVITES) {
+      if (votesAmt >= CACHE_AFTER_UPVOTES) {
         const cachePayload: CachedPost = {
           authorUsername: post.author.username ?? "",
           content: JSON.stringify(post.content),
@@ -102,7 +103,7 @@ export async function PATCH(req: Request) {
       return acc;
     }, 0);
 
-    if (votesAmt >= CACHE_AFTER_UPVITES) {
+    if (votesAmt >= CACHE_AFTER_UPVOTES) {
       const cachePayload: CachedPost = {
         authorUsername: post.author.username ?? "",
         content: JSON.stringify(post.content),
@@ -116,6 +117,7 @@ export async function PATCH(req: Request) {
     }
 
     return new Response('OK')
+    
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response("invalid request passed", { status: 422 });
