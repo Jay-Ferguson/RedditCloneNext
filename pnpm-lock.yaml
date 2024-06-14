@@ -45,10 +45,10 @@ importers:
         specifier: ^6.0.13
         version: 6.0.13(react@18.2.0)
       '@next-auth/prisma-adapter':
-        specifier: ^1.0.6
+        specifier: ^1.0.7
         version: 1.0.7(@prisma/client@4.15.0(prisma@4.14.1))(next-auth@4.22.1(next@13.4.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       '@prisma/client':
-        specifier: ^4.14.1
+        specifier: ^4.15.0
         version: 4.15.0(prisma@4.14.1)
       '@radix-ui/react-avatar':
         specifier: ^1.0.4
@@ -72,7 +72,7 @@ importers:
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.3.2)
       '@tanstack/react-query':
-        specifier: ^4.29.11
+        specifier: ^4.29.12
         version: 4.29.12(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@types/node':
         specifier: 20.2.5
@@ -147,7 +147,7 @@ importers:
         specifier: ^14.2.3
         version: 14.2.3(react@18.2.0)
       react-hook-form:
-        specifier: ^7.44.2
+        specifier: ^7.44.3
         version: 7.44.3(react@18.2.0)
       react-textarea-autosize:
         specifier: ^8.4.1
@@ -1052,8 +1052,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  caniuse-lite@1.0.30001492:
-    resolution: {integrity: sha512-2efF8SAZwgAX1FJr87KWhvuJxnGJKOnctQa8xLOskAXNXq8oiuqgl6u1kk3fFpsp3GgvzlRjiK1sl63hNtFADw==}
+  caniuse-lite@1.0.30001633:
+    resolution: {integrity: sha512-6sT0yf/z5jqf8tISAgpJDrmwOpLsrpnyCdD/lOZKvKkkJK4Dn0X5i7KF7THEZhOq+30bmhwBlNEaqPUiHiKtZg==}
 
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -3444,7 +3444,7 @@ snapshots:
   autoprefixer@10.4.14(postcss@8.4.23):
     dependencies:
       browserslist: 4.21.7
-      caniuse-lite: 1.0.30001492
+      caniuse-lite: 1.0.30001633
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -3496,7 +3496,7 @@ snapshots:
 
   browserslist@4.21.7:
     dependencies:
-      caniuse-lite: 1.0.30001492
+      caniuse-lite: 1.0.30001633
       electron-to-chromium: 1.4.419
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.7)
@@ -3523,7 +3523,7 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001492: {}
+  caniuse-lite@1.0.30001633: {}
 
   chalk@4.1.2:
     dependencies:
@@ -4498,7 +4498,7 @@ snapshots:
       '@next/env': 13.4.4
       '@swc/helpers': 0.5.1
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001492
+      caniuse-lite: 1.0.30001633
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
