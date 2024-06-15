@@ -3,7 +3,6 @@
 import { FC, useRef } from "react";
 import type { Post, User, Vote } from "@prisma/client";
 import { formatTimeToNow } from "@/lib/utils";
-import Link from "next/link";
 import { MessageSquare } from "lucide-react";
 import EditorOutput from "./EditorOutput";
 import PostVoteClient from "./post-vote/PostVoteClient";
