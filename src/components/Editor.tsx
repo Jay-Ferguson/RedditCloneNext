@@ -15,6 +15,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import MiniCreatePost from "./MiniCreatePost";
+import { FileEsque } from "uploadthing/types";
 
 interface EditorProps {
   subredditId: string;
@@ -78,12 +79,13 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
             config: {
               uploader: {
                 async uploadByfile(file: File) {
-                  const [res] = await uploadFiles([file], "imageUploader");
+                  // @ts-ignore
+                  const [res] = await uploadFiles([file], "imageUploader")
 
                   return {
                     sucess: 1,
                     file: {
-                      url: res.fileUrl,
+                      url: res.url,
                     },
                   };
                 },
@@ -108,7 +110,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
           title: "Somwething went wrong",
           description: (value as { message: string }).message,
           variant: "destructive",
-        });
+        })
       }
     }
   }, [errors]);
