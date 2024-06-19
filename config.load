@@ -1,27 +1,10 @@
-load database
-
-# Source MySQL Database Connection
-  from mysql://jsnaxivp9loo2qxojyg2:pscale_pw_4RGr7tVI7iVCzGS7uX6E7k0xDS8UaV7kUmLyA6t3MJC@127.0.0.1:3306/breaddit-db?sslmode=require
+LOAD DATABASE
+  FROM mysql://e6318yx3odr01d6amk95:pscale_pw_60WFHsGjUSn8wJMxHYm2jghSmp6Q7zcevdQvwlhZZBL@gcp-northamerica-northeast1.connect.psdb.cloud/breaddit-db?sslaccept=strict
   
-# Target PostgreSQL Database Connection
-  into postgresql://breaddit-db_owner:endpoint=ep-silent-sun-a54cdxfi;veUW9a8yEXsN@ep-silent-sun-a54cdxfi.us-east-2.aws.neon.tech/breaddit-db?sslmode=require
-
-
-
- 'mysql://e6318yx3odr01d6amk95:pscale_pw_60WFHsGjUSn8wJMxHYm2jghSmp6Q7zcevdQvwlhZZBL@gcp-northamerica-northeast1.connect.psdb.cloud/breaddit-db?sslaccept=strict'
-
-
- #local - mysql://e6318yx3odr01d6amk95:pscale_pw_60WFHsGjUSn8wJMxHYm2jghSmp6Q7zcevdQvwlhZZBL@127.0.0.1:3306:/breaddit-db
-
- 'mysql://username:e6318yx3odr01d6amk95password:pscale_pw_60WFHsGjUSn8wJMxHYm2jghSmp6Q7zcevdQvwlhZZBL:/breaddit-db
-
-  postgresql://breaddit-db_owner:endpoint=ep-empty-wave-a515d293$veUW9a8yEXsN@ep-empty-wave-a515d293.us-east-2.aws.neon.tech/breaddit-db?sslmode=require
+  INTO postgresql://breaddit-db_owner:endpoint=ep-silent-sun-a54cdxfi;veUW9a8yEXsN@ep-silent-sun-a54cdxfi.us-east-2.aws.neon.tech/breaddit-db?sslmode=require
 
 # Additional Options
 --with quote identifiers  # Quote identifiers in the target schema
 --preserve index names  # Preserve original index names (if possible)
 
 
-# load database
-# from mysql://user:password@host/source_db?sslmode=require
-# into postgres://alex:endpoint=ep-cool-darkness-123456;AbC123dEf@ep-cool-darkness-123456.us-east-2.aws.neon.tech/dbname?sslmode=require;
