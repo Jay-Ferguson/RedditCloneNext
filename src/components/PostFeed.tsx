@@ -6,8 +6,8 @@ import { useRef } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
-import axios from "axios";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 import Post from "./Post";
 
 interface PostFeedProps {
@@ -53,7 +53,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
 
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
-      {posts.map((post, index, key ) => {
+      {posts.map((post, index, ) => {
         const votesAmt = post.votes.reduce((acc, vote) => {
           if (vote.type === "UP") return acc + 1;
           if (vote.type === "DOWN") return acc - 1;

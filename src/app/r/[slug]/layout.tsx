@@ -23,6 +23,7 @@ const Layout = async ({
         include: {
           author: true,
           votes: true,
+          comments:true,
         },
       },
     },
