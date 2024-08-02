@@ -18,7 +18,7 @@ const Navbar = async () => {
           <p className="hidden text-zinc-700 text-sm font-medium md:block">
             Breadit
           </p>
-          <Link href="/sign-in" className="">
+          <Link href="/sign-in" className="text-zinc-900">
             <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"></Icons.logo>
             Sign up
           </Link>
