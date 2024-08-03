@@ -1,5 +1,7 @@
 "use client";
 
+import type EditorJS from "@editorjs/editorjs";
+import { toast } from "./ui/use-toast";
 import { FC, useEffect, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { useForm } from "react-hook-form";
@@ -7,9 +9,7 @@ import { PostCreationRequest, PostValidator } from "@/lib/validators/post";
 import { uploadFiles } from "@/lib/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback } from "react";
-import { useRef } from "react";https://www.youtube.com/watch?v=uRmQ1vEaFgY
-import type EditorJS from "@editorjs/editorjs";
-import { toast } from "./ui/use-toast";
+import { useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { usePathname } from "next/navigation";
@@ -80,7 +80,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
               uploader: {
                 async uploadByfile(file: File) {
                   // @ts-ignore
-                  const [res] = await uploadFiles([file], "imageUploader")
+                  const [res] = await uploadFiles([file], "imageUploader");
 
                   return {
                     sucess: 1,
@@ -110,11 +110,10 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
           title: "Somwething went wrong",
           description: (value as { message: string }).message,
           variant: "destructive",
-        })
+        });
       }
     }
   }, [errors]);
-
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -142,6 +141,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     }
   }, [isMounted, initializeEditor]);
 
+  const { ref: titleRef, ...rest } = register("title");
 
   const { mutate: createPost } = useMutation({
     mutationFn: async ({
@@ -169,7 +169,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     onSuccess: () => {
       // r/my community/submit into r/mycommunity
       const newPathname = pathname.split("/").slice(0, -1).join("/");
-      router.push(newPathname); 
+      router.push(newPathname);
 
       router.refresh();
 
@@ -189,12 +189,6 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
 
     createPost(payload);
   }
-
-  if (!isMounted) {
-    return null;
-  }
-
-  const { ref: titleRef, ...rest } = register("title");
 
   return (
     <div className="w-full p-4 bg-zinc-50 rouded-lg border-zinc-200">
