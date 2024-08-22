@@ -45,10 +45,16 @@ function CustomImageRenderer({data}: any) {
      const src = data.file.url
 
      return (
-          <div className="relative w-full min-h-[15rem]">
+
+       <div className="relative w-full min-h-[15rem]">
+            <pre className="bg-gray-800 rounded-md p-4">
+              <code className="text-gray-800 rounded-md p-4">{data.code}</code>
+            </pre>
                <Image alt='image' className='object-contain' fill src={src} ></Image>
           </div>
      )
 }
+
+
 
 export default EditorOutput;

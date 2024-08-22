@@ -102,7 +102,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
       >
         <ArrowBigDown
           className={cn("h-5 w-5 text-zinc-700", {
-            "text-red-700 fill-red-300": currentVote === "UP",
+            "text-red-700 fill-red-600": currentVote === "DOWN",
           })}
         ></ArrowBigDown>
       </Button>
