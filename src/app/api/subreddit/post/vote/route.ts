@@ -2,7 +2,7 @@ import { PostVoteValidator } from "@/lib/validators/vote";
 import { getAuthSession } from "@/lib/auth";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
-import { CachedPost } from "@/types/redis";
+import type { CachedPost } from "@/types/redis";
 import { Redis } from "@upstash/redis/nodejs";
 import { redis } from "@/lib/redis";
 import { z } from "zod";

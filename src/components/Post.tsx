@@ -24,7 +24,7 @@ const Post: FC<PostProps> = ({
   post,
   commentAmt,
   votesAmt,
-  currentVote
+  currentVote,
 }) => {
   const pRef = useRef<HTMLDivElement>(null);
   return (
