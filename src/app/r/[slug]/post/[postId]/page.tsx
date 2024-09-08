@@ -65,16 +65,19 @@ const page = async ({ params }: PageProps) => {
             Posted by u/{post?.author?.name ?? cachedPost.authorUsername}{" "}
             {formatTimeToNow(new Date(post?.createdAt ?? cachedPost.createdAt))}
           </p>
-            <h1 className="text-xl font-semibold py-2 leading-6 text-gray-500">
-              {post?.title ?? cachedPost.title}
-            </h1>
-            <EditorOutput content={post?.content ?? cachedPost.content} />
+          <h1 className="text-xl font-semibold py-2 leading-6 text-gray-500">
+            {post?.title ?? cachedPost.title}
+          </h1>
+          <EditorOutput content={post?.content ?? cachedPost.content} />
 
-            <Suspense fallback={<Loader2 className="h-5 w-5 animate-spin text-zinc-500" />}>
-            <CommentSection/>
-            </Suspense>
-          
-
+          <Suspense
+            fallback={
+              <Loader2 className="h-5 w-5 animate-spin text-zinc-500" />
+            }
+          >
+            {/* @ts-expect-error Async Server Component */}
+            <CommentsSection postId={post?.title ?? cachedPost.title} />
+          </Suspense>
         </div>
       </div>
     </div>
