@@ -6,6 +6,9 @@ import { Textarea } from "./ui/Textarea";
 import { useMutation } from "@tanstack/react-query";
 import { CommentRequest } from "@/lib/validators/comment";
 import axios from "axios";
+import { AxiosError } from "axios";
+import {loginToast} from "@/hooks/use-custom-toast";
+import { toast } from "./ui/use-toast"; //toast
 interface CreateCommentProps {}
 
 const CreateComment: FC<CreateCommentProps> = ({}) => {
@@ -22,6 +25,20 @@ const CreateComment: FC<CreateCommentProps> = ({}) => {
         payload
       );
       return data;
+    },
+
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast();
+        }
+      }
+
+      return toast({
+        title: "There was a problem.",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
     },
   });
 
