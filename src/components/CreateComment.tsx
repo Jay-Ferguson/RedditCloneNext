@@ -7,12 +7,17 @@ import { useMutation } from "@tanstack/react-query";
 import { CommentRequest } from "@/lib/validators/comment";
 import axios from "axios";
 import { AxiosError } from "axios";
-import {loginToast} from "@/hooks/use-custom-toast";
+import { useCustomToast } from "@/hooks/use-custom-toast";
 import { toast } from "./ui/use-toast"; //toast
-interface CreateCommentProps {}
+
+
+interface CreateCommentProps {
+
+}
 
 const CreateComment: FC<CreateCommentProps> = ({}) => {
   const [input, setInput] = useState<string>("");
+  const {loginToast} = useCustomToast();
   const {} = useMutation({
     mutationFn: async ({ postId, text, replyToId }: CommentRequest) => {
       const payload: CommentRequest = {
