@@ -31,7 +31,7 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
       <hr className="w-ful h-px my-6" />
       {/* {create comment} */}
 
-      <CreateComment  />
+      <CreateComment postId={postId} />
       <div className="flex flex-col gap-y-6 mt-4">
         {comments
           .filter((comment) => !comment.replyToId)
