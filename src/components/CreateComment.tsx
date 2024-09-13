@@ -5,20 +5,25 @@ import { Label } from "./ui/Label";
 import { Textarea } from "./ui/Textarea";
 import { useMutation } from "@tanstack/react-query";
 import { CommentRequest } from "@/lib/validators/comment";
-import axios from "axios";
 import { AxiosError } from "axios";
+import axios from "axios";
 import { useCustomToast } from "@/hooks/use-custom-toast";
 import { toast } from "./ui/use-toast"; //toast
+import { Button } from "./ui/Button";
+import { useRouter } from "next/navigation";
 
 
 interface CreateCommentProps {
-
+postId: string;
+replyToId?: string;
 }
 
-const CreateComment: FC<CreateCommentProps> = ({}) => {
+const CreateComment: FC<CreateCommentProps> = ({postId, replyToId}) => {
   const [input, setInput] = useState<string>("");
   const {loginToast} = useCustomToast();
-  const {} = useMutation({
+  const router = useRouter();
+  const {mutate: comment, isLoading} = useMutation({
+
     mutationFn: async ({ postId, text, replyToId }: CommentRequest) => {
       const payload: CommentRequest = {
         postId,
@@ -45,6 +50,10 @@ const CreateComment: FC<CreateCommentProps> = ({}) => {
         variant: "destructive",
       });
     },
+    onSuccess: () => {
+         router.refresh()
+         setInput('')
+    }
   });
 
   return (
@@ -59,7 +68,9 @@ const CreateComment: FC<CreateCommentProps> = ({}) => {
           placeholder="what are your thoughts"
         ></Textarea>
 
-        <div className="mt-2 flex justify-end"></div>
+        <div className="mt-2 flex justify-end">
+          <Button isLoading={isLoading} disabled={input.length === 0}>Post</Button>
+        </div>
       </div>
     </div>
   );
