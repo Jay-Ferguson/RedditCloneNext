@@ -5,4 +5,5 @@ export const redis = new Redis({
      token:process.env.REDIS_SECRET!
 })
 
-  
+  await redis.set('key', 'value');
+  const data = await redis.get('key');
