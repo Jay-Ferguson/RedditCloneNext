@@ -44,6 +44,7 @@ const PostComment: FC<PostCommentProps> = ({comment, votesAmt, currentVote, post
       <p className="text-sm text-zinc-500 truncate">
           {comment.text}
       </p>
+      <CommentVotes />
       PostComment
     </div>
   );
