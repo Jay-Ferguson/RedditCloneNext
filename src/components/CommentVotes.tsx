@@ -1,6 +1,6 @@
 "use client";
 
-import { VoteType } from "@prisma/client";
+import { CommentVote, VoteType } from "@prisma/client";
 import { FC, useEffect } from "react";
 import { useState } from "react";
 import { useCustomToast } from "@/hooks/use-custom-toast";
@@ -16,11 +16,14 @@ import {
 import axios, { AxiosError } from "axios";
 import { toast } from "./ui/use-toast";
 
+
+
+type PartialVote = Pick<CommentVote, 'type'>
 interface CommentVoteProps {
   commentId: string;
   initialVotesAmt: number;
   initialcommentVote?: VoteType | null;
-  initialVote?: VoteType | null;
+  initialVote?: PartialVote
 }
 
 const CommentVote: FC<CommentVoteProps> = ({
@@ -65,15 +68,15 @@ const CommentVote: FC<CommentVoteProps> = ({
         variant: "destructive",
       });
     },
-    onMutate: (type: VoteType) => {
-      if (currentVote === type) {
+    onMutate: (type) => {
+      if (currentVote?.type === type) {
         setCurrentVote(undefined);
         if (type === "UP") setVotesAmt((prev) => prev - 1);
         else if (type === "DOWN") setVotesAmt((prev) => prev + 1);
       }
       // set upvotes back to neutral position
       else {
-        setCurrentVote(type);
+        setCurrentVote({type});
         if (type === "UP") setVotesAmt((prev) => prev + (currentVote ? 2 : 1));
         else if (type === "DOWN")
           setVotesAmt((prev) => prev - (currentVote ? 2 : 1));
@@ -91,7 +94,7 @@ const CommentVote: FC<CommentVoteProps> = ({
       >
         <ArrowBigUp
           className={cn("h-5 w-5 text-zinc-700", {
-            "text-emerald-500 fill-emerald-500": currentVote === "UP",
+            "text-emerald-500 fill-emerald-500": currentVote?.type === "UP",
           })}
         ></ArrowBigUp>
       </Button>
@@ -107,7 +110,7 @@ const CommentVote: FC<CommentVoteProps> = ({
       >
         <ArrowBigDown
           className={cn("h-5 w-5 text-zinc-700", {
-            "text-red-700 fill-red-600": currentVote === "DOWN",
+            "text-red-700 fill-red-600": currentVote?.type === "DOWN",
           })}
         ></ArrowBigDown>
       </Button>
