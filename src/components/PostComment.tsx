@@ -11,6 +11,9 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { set } from "date-fns";
 import { Label } from "@radix-ui/react-dropdown-menu";
+import { useMutation } from "@tanstack/react-query";
+import { CommentRequest } from "@/lib/validators/comment";
+import axios from "axios";
 
 type ExtendedComment = Comment & {
   votes: CommentVote[];
@@ -31,8 +34,25 @@ const PostComment: FC<PostCommentProps> = ({
 }) => {
   const commentRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const [isReplying, setIsReplying] = useState<boolean>(false);
   const {data:session} = useSession()
+  const [isReplying, setIsReplying] = useState<boolean>(false);
+  const [input, setInput] = useState<string>("");
+
+  const {mutate: postComment, isLoading} = useMutation({
+    mutationFn: async({postId, text, replyToId}: CommentRequest) => {
+      const payload: CommentRequest = {
+        postId,
+        text,
+        replyToId,
+      }
+      const {data} = await axios.patch(`/api/subreddit/post/${postId}/comment`, payload)
+      return data
+    }
+  })
+
+
+
+
   return (
     <div ref={commentRef} className="flex flex-col">
       <div className="flex flex-center">
@@ -53,7 +73,7 @@ const PostComment: FC<PostCommentProps> = ({
           </p>
         </div>
       </div>
-      <p className="text-sm text-zinc-500 truncate">{comment.text}</p>
+      <p className="text-sm text-zinc-500 mt-2 truncate">{comment.text}</p>
       <CommentVotes
         commentId={comment.id}
         initialVotesAmt={votesAmt}
@@ -68,7 +88,7 @@ const PostComment: FC<PostCommentProps> = ({
     }
   }} variant='ghost' size='xs' aria-label='reply'>
     <MessageSquare className="h-4 w-4 mr-1.5" />
-    Reply
+    Reply 
     </Button>
 
     {isReplying ? (
