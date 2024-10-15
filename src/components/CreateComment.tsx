@@ -12,18 +12,16 @@ import { toast } from "./ui/use-toast"; //toast
 import { Button } from "./ui/Button";
 import { useRouter } from "next/navigation";
 
-
 interface CreateCommentProps {
-postId: string;
-replyToId?: string;
+  postId: string;
+  replyToId?: string;
 }
 
-const CreateComment: FC<CreateCommentProps> = ({postId, replyToId}) => {
+const CreateComment: FC<CreateCommentProps> = ({ postId, replyToId }) => {
   const [input, setInput] = useState<string>("");
-  const {loginToast} = useCustomToast();
+  const { loginToast } = useCustomToast();
   const router = useRouter();
-  const {mutate: comment, isLoading} = useMutation({
-
+  const { mutate: comment, isLoading } = useMutation({
     mutationFn: async ({ postId, text, replyToId }: CommentRequest) => {
       const payload: CommentRequest = {
         postId,
@@ -51,9 +49,9 @@ const CreateComment: FC<CreateCommentProps> = ({postId, replyToId}) => {
       });
     },
     onSuccess: () => {
-         router.refresh()
-         setInput('')
-    }
+      router.refresh();
+      setInput("");
+    },
   });
 
   return (
@@ -69,7 +67,13 @@ const CreateComment: FC<CreateCommentProps> = ({postId, replyToId}) => {
         ></Textarea>
 
         <div className="mt-2 flex justify-end">
-          <Button isLoading={isLoading} disabled={input.length === 0}>Post</Button>
+          <Button
+            isLoading={isLoading}
+            disabled={input.length === 0}
+            onClick={() => comment({ postId, text: input, replyToId })}
+          >
+            Post
+          </Button>
         </div>
       </div>
     </div>
