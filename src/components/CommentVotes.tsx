@@ -26,7 +26,7 @@ interface CommentVoteProps {
   initialVote?: PartialVote
 }
 
-const CommentVote: FC<CommentVoteProps> = ({
+const CommentVotes: FC<CommentVoteProps> = ({
   commentId,
   initialVotesAmt,
   initialVote,
@@ -98,7 +98,7 @@ const CommentVote: FC<CommentVoteProps> = ({
           })}
         ></ArrowBigUp>
       </Button>
-      CommentVote
+          {/* score */}
       <p className="text-center py-2 font-medium text-sm text-zinc-900">
         {votesAmt}
       </p>
@@ -118,4 +118,4 @@ const CommentVote: FC<CommentVoteProps> = ({
   );
 };
 
-export default CommentVote;
+export default CommentVotes;
