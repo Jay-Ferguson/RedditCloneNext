@@ -10,7 +10,8 @@ import { MessageSquare } from "lucide-react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { set } from "date-fns";
-import { Label } from "@radix-ui/react-dropdown-menu";
+import { Label } from "./ui/Label";
+import { Textarea } from "./ui/Textarea";
 import { useMutation } from "@tanstack/react-query";
 import { CommentRequest } from "@/lib/validators/comment";
 import axios from "axios";
@@ -72,7 +73,33 @@ const PostComment: FC<PostCommentProps> = ({
             {formatTimeToNow(new Date(comment.createdAt))}
           </p>
         </div>
+
+        <Textarea
+          id="comment"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          rows={1}
+          placeholder="Write a comment..."
+        ></Textarea>
+
+          <div className="mt-2 flex justify-end">
+            <Button isLoading={isLoading}
+            disabled={input.length === 0 || !session}
+            onClick={() => {
+              if(!input) return 
+              postComment({
+                postId, 
+                text:input,
+                replyToId:comment.replyToId ?? comment.id
+              })
+            }}>
+              Post
+            </Button>
+          </div>
+
+
       </div>
+
       <p className="text-sm text-zinc-500 mt-2 truncate">{comment.text}</p>
       <CommentVotes
         commentId={comment.id}
@@ -80,22 +107,44 @@ const PostComment: FC<PostCommentProps> = ({
         initialVote={currentVote}
       />
 
+      <Button
+        onClick={() => {
+          if (!session) {
+            router.push("/sign-in");
+            setIsReplying(true);
+          }
+        }}
+        variant="ghost"
+        size="xs"
+        aria-label="reply"
+      >
+        <MessageSquare className="h-4 w-4 mr-1.5" />
+        Reply
+      </Button>
 
-  <Button onClick={() => {
-    if(!session) {
-      router.push('/sign-in')
-      setIsReplying(true)
-    }
-  }} variant='ghost' size='xs' aria-label='reply'>
-    <MessageSquare className="h-4 w-4 mr-1.5" />
-    Reply 
-    </Button>
-
-    {isReplying ? (
-      <div className="grid w-full gap-1.5">
-        <Label>Your comment</Label>
-      </div>
-    ): null}
+      {isReplying ? (
+        <div className="grid w-full gap-1.5">
+          <Label htmlFor="comment">
+            Your comment
+            <div className="mt-2">
+              <Textarea
+                onFocus={(e) =>
+                  e.currentTarget.setSelectionRange(
+                    e.currentTarget.value.length,
+                    e.currentTarget.value.length
+                  )
+                }
+                autoFocus
+                id="comment"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                rows={1}
+                placeholder="What are your thoughts?"
+              />
+            </div>
+          </Label>
+        </div>
+      ) : null}
     </div>
   );
 };
