@@ -55,17 +55,17 @@ const PostComment: FC<PostCommentProps> = ({
       return data;
     },
 
-    onError:() => {
+    onError: () => {
       return toast({
-        title:'something went wrong',
-        description:'comment wassnt posted please try again',
-        variant:'destructive',
-      })
+        title: "something went wrong",
+        description: "comment wassnt posted please try again",
+        variant: "destructive",
+      });
     },
     onSuccess: () => {
       // @ts-ignore
       router.refresh();
-    }
+    },
   });
 
   return (
@@ -156,6 +156,13 @@ const PostComment: FC<PostCommentProps> = ({
                 <Label htmlFor="comment">Your comment</Label>
                 <div className="mt-2">
                   <Textarea
+                    onFocus={(e) =>
+                      e.currentTarget.setSelectionRange(
+                        e.currentTarget.value.length,
+                        e.currentTarget.value.length
+                      )
+                    }
+                    autoFocus
                     id="comment"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -163,34 +170,34 @@ const PostComment: FC<PostCommentProps> = ({
                     placeholder="comment below..."
                   ></Textarea>
 
-                  <div className="mt-2 flex justify-end">
+                  <div className="mt-2 flex justify-end gap-2">
                     <Button
+                      tabIndex={-1}
                       isLoading={isLoading}
                       disabled={input.length === 0}
-                      onClick={() =>
-                        comment({ postId, text: input, replyToId })
-                      }
+                      onClick={() => setIsReplying(false)}
+                    >
+                      Cancel
+                    </Button>
+
+                    <Button
+                      tabIndex={-1}
+                      isLoading={isLoading}
+                      disabled={input.length === 0}
+                      onClick={() => {
+                        if (!input) return;
+                        postComment({
+                          postId,
+                          text: input,
+                          replyToId: comment.replyToId ?? comment.id,
+                        });
+                      }}
                     >
                       Post
                     </Button>
                   </div>
                 </div>
               </div>
-
-              <Textarea
-                onFocus={(e) =>
-                  e.currentTarget.setSelectionRange(
-                    e.currentTarget.value.length,
-                    e.currentTarget.value.length
-                  )
-                }
-                autoFocus
-                id="comment"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                rows={1}
-                placeholder="What are your thoughts?"
-              />
             </div>
           </Label>
         </div>

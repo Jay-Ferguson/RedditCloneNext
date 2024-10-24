@@ -1,102 +1,66 @@
 import { PostVoteValidator } from "@/lib/validators/vote";
 import { getAuthSession } from "@/lib/auth";
-import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
-import type { CachedPost } from "@/types/redis";
-import { Redis } from "@upstash/redis/nodejs";
-import { redis } from "@/lib/redis";
+import { CommentVoteValidator } from "@/lib/validators/vote";
 import { z } from "zod";
-
-const CACHE_AFTER_UPVOTES = 1;
 
 export async function PATCH(req: Request) {
   try {
     const body = req.json();
 
-    const { postId, voteType } = PostVoteValidator.parse(body);
+    const { commentId, voteType } = CommentVoteValidator.parse(body);
 
     const session = await getAuthSession();
     if (!session?.user) {
       return new Response("Unauthorized", { status: 401 });
     }
-    const existingVote = await db.vote.findFirst({
+    const existingVote = await db.commentVote.findFirst({
       where: {
         userId: session.user.id,
-        postId,
+        commentId,
       },
     });
-
-    const post = await db.post.findUnique({
-      where: {
-        id: postId,
-      },
-      include: {
-        author: true,
-        votes: true,
-      },
-    });
-
-    if (!post) {
-      return new Response("post not found", { status: 404 });
-    }
 
     if (existingVote) {
       if (existingVote.type === voteType) {
-        await db.vote.delete({
+        await db.commentVote.delete({
           where: {
-            userId_postId: {
-              postId,
+            userId_commentId: {
+              commentId,
               userId: session.user.id,
             },
           },
         });
 
         return new Response("OK");
-      }
-      await db.vote.update({
-        where: {
-          userId_postId: {
-            postId,
-            userId: session.user.id,
+      } else {
+        await db.commentVote.update({
+          where: {
+            userId_commentId: {
+              commentId: commentId,
+              userId: session.user.id,
+            },
           },
-        },
-        data: {
-          type: voteType,
-        },
-      });
+          data: {
+            type: voteType,
+          },
+        });
+        return new Response("OK");
+      }
+    }
 
-    await db.vote.create({
+    await db.commentVote.create({
       data: {
         type: voteType,
         userId: session.user.id,
-        postId,
+        commentId,
       },
     });
 
     //recount the votes
-    const votesAmt = post.votes.reduce((acc, vote) => {
-      if (vote.type === "UP") return acc + 1;
-      if (vote.type === "DOWN") return acc - 1;
-      return acc;
-    }, 0);
-
-    if (votesAmt >= CACHE_AFTER_UPVOTES) {
-      const cachePayload: CachedPost = {
-        authorUsername: post.author.username ?? "",
-        content: JSON.stringify(post.content),
-        id: post.id,
-        title: post.title,
-        currentVote: voteType,
-        createdAt: post.createdAt,
-      };
-
-      await redis.hset(`post:${postId}`, cachePayload);
-    }
-
-    return new Response("OK");
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return new Response("invalid request passed", { status: 422 });
+      return new Response("invalid request passed", { status: 400 });
     }
     return new Response(
       "Could not post to subreddit at this time, please try again later",
