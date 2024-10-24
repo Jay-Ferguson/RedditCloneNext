@@ -48,11 +48,49 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
             const topLevelCommentVote = topLevelComment.votes.find(
               (vote) => vote.userId === session?.user.id
             );
-            return <div key={topLevelComment.id} className="flex flex-col">
-               <div className="mb-2">
-                    <PostComment comment={topLevelComment} votesAmt={topLevelCommentAmt} currentVote={topLevelCommentVote} postId={postId}/>
-               </div>
-            </div>;
+            return (
+              <div key={topLevelComment.id} className="flex flex-col">
+                <div className="mb-2">
+                  <PostComment
+                    comment={topLevelComment}
+                    votesAmt={topLevelCommentAmt}
+                    currentVote={topLevelCommentVote}
+                    postId={postId}
+                  />
+                </div>
+
+                {topLevelComment.replies
+                  .sort((a, b) => b.votes.length - a.votes.length)
+                  .map((reply) => {
+                    const replyVotesAmt = topLevelComment.votes.reduce(
+                      (acc, vote) => {
+                        if (vote.type === "UP") return acc + 1;
+                        if (vote.type === "DOWN") return acc - 1;
+                        return acc;
+                      },
+                      0
+                    );
+
+                    const replyVote = topLevelComment.votes.find(
+                      (vote) => vote.userId === session?.user.id
+                    );
+
+                    return (
+                      <div
+                        key={reply.id}
+                        className="pl-4 py-2 border-2 border-gray-200 ml-2"
+                      >
+                        <PostComment
+                          comment={reply}
+                          votesAmt={replyVotesAmt}
+                          currentVote={replyVote}
+                          postId={postId}
+                        />
+                      </div>
+                    );
+                  })}
+              </div>
+            );
           })}
       </div>
     </div>
