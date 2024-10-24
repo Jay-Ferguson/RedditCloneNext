@@ -7,10 +7,12 @@ import { CommentVote } from "@prisma/client";
 import CommentVotes from "./CommentVotes";
 import { Button } from "./ui/Button";
 import { MessageSquare } from "lucide-react";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { set } from "date-fns";
 import { Label } from "./ui/Label";
+import { useCustomToast } from "@/hooks/use-custom-toast";
+import { toast } from "./ui/use-toast";
+import { useRouter } from "next/router";
 import { Textarea } from "./ui/Textarea";
 import { useMutation } from "@tanstack/react-query";
 import { CommentRequest } from "@/lib/validators/comment";
@@ -52,6 +54,18 @@ const PostComment: FC<PostCommentProps> = ({
       );
       return data;
     },
+
+    onError:() => {
+      return toast({
+        title:'something went wrong',
+        description:'comment wassnt posted please try again',
+        variant:'destructive',
+      })
+    },
+    onSuccess: () => {
+      // @ts-ignore
+      router.refresh();
+    }
   });
 
   return (
