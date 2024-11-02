@@ -174,6 +174,7 @@ const PostComment: FC<PostCommentProps> = ({
                     <Button
                       tabIndex={-1}
                       isLoading={isLoading}
+                      variant='subtle'
                       disabled={input.length === 0}
                       onClick={() => setIsReplying(false)}
                     >

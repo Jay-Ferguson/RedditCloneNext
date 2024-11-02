@@ -55,8 +55,8 @@ export async function PATCH(req: Request) {
         userId: session.user.id,
         commentId,
       },
-    });
-
+    })
+return new Response("OK")
     //recount the votes
   } catch (error) {
     if (error instanceof z.ZodError) {
