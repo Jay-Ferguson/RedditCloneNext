@@ -1,7 +1,7 @@
 "use client";
 
 import { CommentVote, VoteType } from "@prisma/client";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useState } from "react";
 import { useCustomToast } from "@/hooks/use-custom-toast";
 import { usePrevious } from "@mantine/hooks";
@@ -15,7 +15,7 @@ import {
 } from "@/lib/validators/vote";
 import axios, { AxiosError } from "axios";
 import { toast } from "./ui/use-toast";
-
+  
 
 
 type PartialVote = Pick<CommentVote, 'type'>
