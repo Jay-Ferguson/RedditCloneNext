@@ -4,7 +4,7 @@ import { Icons } from "../Icons";
 import { buttonVariants } from "./Button";
 import { getAuthSession } from "@/lib/auth";
 import UserAccountNav from "../UserAccountNav";
-
+import SearchBar from "./SearchBar";
 
 
 const Navbar = async () => {
@@ -22,7 +22,7 @@ const Navbar = async () => {
             <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"></Icons.logo>
             Sign up
           </Link>
-
+          <SearchBar></SearchBar>
 
           {session?.user ? (
             <UserAccountNav user={session.user}>

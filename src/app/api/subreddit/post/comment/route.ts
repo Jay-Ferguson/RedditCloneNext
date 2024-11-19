@@ -1,5 +1,5 @@
 import { CommentValidator } from "@/lib/validators/comment"
-import { db } from "@/lib/db"
+import { db } from "@/ plib/db"
 import { getAuthSession } from "@/lib/auth"
 import z from "zod"
 export async function PATCH(req: Request) {

@@ -43,7 +43,7 @@ const PostComment: FC<PostCommentProps> = ({
         postId,
         text,
         replyToId,
-      }
+      };
       const { data } = await axios.patch(
         `/api/subreddit/post/${postId}/comment`,
         payload
@@ -61,6 +61,7 @@ const PostComment: FC<PostCommentProps> = ({
     onSuccess: () => {
       // @ts-ignore
       router.refresh();
+      setIsReplying(false);
     },
   });
 
