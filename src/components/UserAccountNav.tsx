@@ -15,6 +15,7 @@ import { signOut } from "next-auth/react";
 
 interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
+  children:any
 }
 
 const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
