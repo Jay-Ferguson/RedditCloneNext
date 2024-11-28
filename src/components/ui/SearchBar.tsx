@@ -1,18 +1,12 @@
-import { FC } from "react";
-import { Command } from "./Command";
-import { Dialog } from "./Dialog";
-import { CommandGroup, CommandInput } from "cmdk";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import axios, { Axios, } from "axios";
-import { debounce } from "lodash";
 import { Prisma, Subreddit } from "@prisma/client";
-import { CommandList } from "./Command";
-import { CommandEmpty } from "./Command";
-import { useRouter } from "next/navigation";
-import { CommandItem } from "./Command";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { CommandGroup, CommandInput } from "cmdk";
+import { debounce } from "lodash";
 import { Users } from "lucide-react";
-import { useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { FC, useCallback, useState } from "react";
+import { Command, CommandEmpty, CommandItem, CommandList } from "./Command";
 interface SearchBarProps {}
 
 const SearchBar: FC<SearchBarProps> = ({}) => {
@@ -37,7 +31,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
 
 const request = debounce(async() => {
   refetch();
-})
+}, 300)
 
   const debounceRequest = useCallback(() => {
     request()
